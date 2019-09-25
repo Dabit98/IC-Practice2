@@ -2,6 +2,8 @@
 #include <string> 
 #include <ctime>
 #include <cstdlib>
+#include <fstream>
+#include <string>
 #include "problem.cpp"
 
 
@@ -18,9 +20,12 @@ int cities(int min_cities, int max_cities) {
 	return rand() % (max_cities +1 - min_cities) + min_cities;
 }
 
+//Write file with the problem
+//ID_problemPNUM.p
 void write_file(Problem p, int id, int pnum) {
-	//Write file with the problem
-	//ID_problemPNUM.p
+	std::ofstream output (std::to_string(id)+"_problem"+std::to_string(pnum)+".p");
+	output << p.toString() << std::endl;
+	output.close();
 }
 
 int main (int argc, char *argv[]) {
