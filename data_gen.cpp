@@ -57,6 +57,8 @@ int main (int argc, char *argv[]) {
 		int g = gas_stations(c);
 		problem = new Problem(c, g, min_distance, max_distance);
 		write_file(problem, id, p);
+		
+		cout << problem.toString();
 		delete problem;
 	}
 	

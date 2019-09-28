@@ -5,7 +5,7 @@
 
 class Problem {
 	private:
-		int cities;
+		int ciudades;
 		int gas_stations;
 		std::vector<std::vector<int>> distancias;
 	public:
@@ -34,9 +34,60 @@ class Problem {
 			}
 		}
 
-		Problem(std::string s) {}
+		Problem(std::string s) {
+			std::vector<string> aux = split(s, '\n');
+			std::vector<string> aux2 = split(aux[0], '	');
+			ciudades = std::stoi(aux2[0]);
+			gas_stations = std::stoi(aux2[1]);
+
+			for(Int i = 1; i < aux.size(); i++){
+				std::vector<string>distan = split(aux[i], '	');
+				for(int j = 0; j < distan; j++){
+					distancias[i-1].pushback(distan[j]);
+				}
+			}
+		}
 		
-		std::string toString() {return "";} 
+		std::string toString() {
+			std::string result = "";
+			result += ciudades;
+			result += "	" + gas_stations + '\n';
+			for(int i = 0; i < distancias.size(); i++){
+							
+				
+				for(int j = 0; j < distacias[i].size(); j++){
+					result += distancias[i][j];
+				
+					if(i < distancias[i].size() - 1){
+						result += "	";
+					}
+				}
+
+				result += '\n'	
+
+				
+			}		
+
+
+			return result;
+		} 
+
+		vector<string> split(string str, char pattern) {
+
+		    int posInit = 0;
+		    int posFound = 0;
+		    std::string splitted;
+		    std::vector<string> resultados;
+
+		    while(posFound >= 0){
+			posFound = str.find(pattern, posInit);
+			splitted = str.substr(posInit, posFound - posInit);
+			posInit = posFound + 1;
+			resultados.push_back(splitted);
+		    }
+
+		    return resultados;
+		}
 
 
 };
