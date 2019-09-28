@@ -36,9 +36,9 @@ class Problem {
 
 		Problem(std::string s) {
 			std::vector<string> aux = split(s, '\n');
-			std::vector<string> aux2 = split(aux[0], '	');
-			ciudades = std::stoi(aux2[0]);
-			gas_stations = std::stoi(aux2[1]);
+			std::vector<string> ciudadesEstaciones = split(aux[0], '	');
+			ciudades = std::stoi(ciudadesEstaciones[0]);
+			gas_stations = std::stoi(ciudadesEstaciones[1]);
 
 			for(Int i = 1; i < aux.size(); i++){
 				std::vector<string>distan = split(aux[i], '	');
