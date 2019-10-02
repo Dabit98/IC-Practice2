@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <string>
-#include "problem.cpp"
+#include "problem.h"
 
 
 int gas_stations(int cities) {
@@ -21,9 +21,9 @@ int cities(int min_cities, int max_cities) {
 }
 
 //Write file with the problem
-//ID_problemPNUM.p
+//problems/ID_problemPNUM.p
 std::string write_file(Problem* p, int id, int pnum) {
-	std::string name = std::to_string(id)+"_problem"+std::to_string(pnum)+".p";
+	std::string name = "problems/"+std::to_string(id)+"_problem"+std::to_string(pnum)+".p";
 	std::ofstream output (name);
 	output << p->toString() << std::endl;
 	output.close();

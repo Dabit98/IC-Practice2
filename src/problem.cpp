@@ -1,16 +1,7 @@
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <vector>
-#include <string>
+#include "problem.h"
 
-class Problem {
-	private:
-		int ciudades;
-		int gasolineras;
-		std::vector<std::vector<int> > distancias;
 
-	 std::vector<std::string> split(std::string str, char pattern) {
+	 std::vector<std::string> Problem::split(std::string str, char pattern) {
 
 		 int posInit = 0;
 		 int posFound = 0;
@@ -27,9 +18,7 @@ class Problem {
 			 return resultados;
 	 }
 
-	public:
-
-		void print(std::vector<std::vector<int> > v)  {
+		void Problem::print(std::vector<std::vector<int> > v)  {
 			for (int i=0; i<v.size(); i++) {
 				std::cout << "SIZE: " << v[i].size() << "\t";
 				for(int j=0; j<v[i].size(); j++) {
@@ -39,13 +28,13 @@ class Problem {
 			}
 		}
 
-		void print(std::vector<std::string> v) {
+		void Problem::print(std::vector<std::string> v) {
 			for (int i=0; i<v.size(); i++) {
 				std::cout << v[i] << std::endl;
 			}
 		}
 
-		Problem(int ciudades, int gasolineras, int min_dist, int max_dist) {
+		Problem::Problem(int ciudades, int gasolineras, int min_dist, int max_dist) {
 			srand(time(NULL));
 			this->ciudades = ciudades;
 			this->gasolineras = gasolineras;
@@ -68,7 +57,7 @@ class Problem {
 			}
 		}
 
-		Problem(std::string s) {
+		Problem::Problem(std::string s) {
 			std::vector<std::string> aux = split(s, '\n');
 			std::vector<std::string> ciudadesEstaciones = split(aux[0], '	');
 			ciudades = std::stoi(ciudadesEstaciones[0]);
@@ -82,7 +71,7 @@ class Problem {
 			}
 		}
 
-		std::string toString() {
+		std::string Problem::toString() {
 			std::string result = "";
 			result += std::to_string(ciudades);
 			result += "	" + std::to_string(gasolineras) + '\n';
@@ -103,9 +92,3 @@ class Problem {
 			}
 			return result;
 		}
-
-		int getCities() {return ciudades;}
-		int getGasStations() {return gasolineras;}
-		int getDistancia(int city1, int city2) {return distancias[city1][city2];}
-
-};

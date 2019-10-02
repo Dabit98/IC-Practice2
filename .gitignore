@@ -1,2 +1,4 @@
 *.exe
 *.p
+*.o
+solutions.sol
