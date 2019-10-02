@@ -22,9 +22,9 @@ int cities(int min_cities, int max_cities) {
 
 //Write file with the problem
 //ID_problemPNUM.p
-void write_file(Problem p, int id, int pnum) {
+void write_file(Problem* p, int id, int pnum) {
 	std::ofstream output (std::to_string(id)+"_problem"+std::to_string(pnum)+".p");
-	output << p.toString() << std::endl;
+	output << p->toString() << std::endl;
 	output.close();
 }
 
@@ -32,14 +32,20 @@ int main (int argc, char *argv[]) {
 
 	srand(time(NULL));
 
+	if (argc < 4) {
+		std::cout << "WRONG NUMBER OF ARGUMENTS!!!" << std::endl;
+		std::cout << "./data_gen.exe max_cities max_distance problems" << std::endl;
+		return -1;
+	}
+
 	//Cities
-	int min_cities = 3
+	int min_cities = 3;
 	int max_cities = atoi(argv[1]);
 	if (max_cities < 5) {
 		max_cities = 4;
 	}
 	//Distances
-	int min_distance = 1
+	int min_distance = 1;
 	int max_distance = atoi(argv[2]);
 	//Problems
 	int problems = atoi(argv[3]);
@@ -51,7 +57,7 @@ int main (int argc, char *argv[]) {
 	std::cout << "Max distance: " << max_distance << std::endl;
 	std::cout << "Problems: " << problems << std::endl;
 
-	Problem problem;
+	Problem* problem;
 	for(int p=0; p<problems; p++) {
 		int c = cities(min_cities, max_cities);
 		int g = gas_stations(c);
