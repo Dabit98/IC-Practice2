@@ -31,7 +31,17 @@ class Problem {
 
 		void print(std::vector<std::vector<int> > v)  {
 			for (int i=0; i<v.size(); i++) {
-				std::cout << "SIZE: " << v[i].size() << std::endl;
+				std::cout << "SIZE: " << v[i].size() << "\t";
+				for(int j=0; j<v[i].size(); j++) {
+					std::cout << v[i][j] << " ";
+				}
+				std::cout << std::endl;
+			}
+		}
+
+		void print(std::vector<std::string> v) {
+			for (int i=0; i<v.size(); i++) {
+				std::cout << v[i] << std::endl;
 			}
 		}
 
@@ -39,9 +49,9 @@ class Problem {
 			srand(time(NULL));
 			this->ciudades = ciudades;
 			this->gasolineras = gasolineras;
-			std::vector<int> distancias_ciudad;
 			//genera los valores de diagonal e inferiores
 			for (int i=0; i<ciudades; i++) {
+				std::vector<int> distancias_ciudad;
 				for (int j=0; j<i; j++) {
 					distancias_ciudad.push_back(
 						rand() % (max_dist + 1 - min_dist) + min_dist
@@ -52,7 +62,7 @@ class Problem {
 			}
 			//copia los valores superiores a la diagonal
 			for(int i=0; i<ciudades; i++) {
-				for(int j=i; j<ciudades; j++) {
+				for(int j=i+1; j<ciudades; j++) {
 					distancias[i].push_back(distancias[j][i]);
 				}
 			}
@@ -63,7 +73,7 @@ class Problem {
 			std::vector<std::string> ciudadesEstaciones = split(aux[0], '	');
 			ciudades = std::stoi(ciudadesEstaciones[0]);
 			gasolineras = std::stoi(ciudadesEstaciones[1]);
-
+			print(aux);
 			for(int i = 1; i < aux.size(); i++){
 				std::vector<std::string> distan = split(aux[i], '	');
 				for(int j = 0; j < distan.size(); j++){
@@ -74,15 +84,15 @@ class Problem {
 
 		std::string toString() {
 			std::string result = "";
-			result += ciudades;
-			result += "	" + gasolineras + '\n';
+			result += std::to_string(ciudades);
+			result += "	" + std::to_string(gasolineras) + '\n';
 			for(int i = 0; i < distancias.size(); i++){
 
 
 				for(int j = 0; j < distancias[i].size(); j++){
-					result += distancias[i][j];
+					result += std::to_string(distancias[i][j]);
 
-					if(i < distancias[i].size() - 1){
+					if(j < distancias[i].size() - 1){
 						result += "	";
 					}
 				}

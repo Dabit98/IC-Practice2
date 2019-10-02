@@ -22,10 +22,12 @@ int cities(int min_cities, int max_cities) {
 
 //Write file with the problem
 //ID_problemPNUM.p
-void write_file(Problem* p, int id, int pnum) {
-	std::ofstream output (std::to_string(id)+"_problem"+std::to_string(pnum)+".p");
+std::string write_file(Problem* p, int id, int pnum) {
+	std::string name = std::to_string(id)+"_problem"+std::to_string(pnum)+".p";
+	std::ofstream output (name);
 	output << p->toString() << std::endl;
 	output.close();
+	return name;
 }
 
 int main (int argc, char *argv[]) {
@@ -62,7 +64,9 @@ int main (int argc, char *argv[]) {
 		int c = cities(min_cities, max_cities);
 		int g = gas_stations(c);
 		problem = new Problem(c, g, min_distance, max_distance);
-		write_file(problem, id, p);
+		std::string name = write_file(problem, id, p);
+		Problem* p2 = new Problem(name);
+		write_file(p2, id+1, p);
 		delete problem;
 	}
 
