@@ -19,7 +19,7 @@ $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 solutions.sol: opt.exe data_gen.exe
-#	./data_gen.exe 4 4 4
+	./data_gen.exe 4 4 4
 	./opt.exe $@ $(shell ls problems/*.p)
 
 opt.exe: $(ODIR)/opt.o $(ODIR)/problem.o
