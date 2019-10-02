@@ -8,6 +8,24 @@ class Problem {
 		int ciudades;
 		int gas_stations;
 		std::vector<std::vector<int>> distancias;
+
+	 vector<string> split(string str, char pattern) {
+
+			 int posInit = 0;
+			 int posFound = 0;
+			 std::string splitted;
+			 std::vector<string> resultados;
+
+			 while(posFound >= 0){
+		 posFound = str.find(pattern, posInit);
+		 splitted = str.substr(posInit, posFound - posInit);
+		 posInit = posFound + 1;
+		 resultados.push_back(splitted);
+			 }
+
+			 return resultados;
+	 }
+
 	public:
 		Problem(int ciudades, int gasolineras, int min_dist, int max_dist) {
 			srand(time(NULL));
@@ -47,47 +65,33 @@ class Problem {
 				}
 			}
 		}
-		
+
 		std::string toString() {
 			std::string result = "";
 			result += ciudades;
 			result += "	" + gas_stations + '\n';
 			for(int i = 0; i < distancias.size(); i++){
-							
-				
+
+
 				for(int j = 0; j < distacias[i].size(); j++){
 					result += distancias[i][j];
-				
+
 					if(i < distancias[i].size() - 1){
 						result += "	";
 					}
 				}
 
-				result += '\n'	
+				result += '\n'
 
-				
-			}		
+
+			}
 
 
 			return result;
-		} 
-
-		vector<string> split(string str, char pattern) {
-
-		    int posInit = 0;
-		    int posFound = 0;
-		    std::string splitted;
-		    std::vector<string> resultados;
-
-		    while(posFound >= 0){
-			posFound = str.find(pattern, posInit);
-			splitted = str.substr(posInit, posFound - posInit);
-			posInit = posFound + 1;
-			resultados.push_back(splitted);
-		    }
-
-		    return resultados;
 		}
 
+		int getCities() {return ciudades;}
+		int getGasStations() {return gas_stations;}
+		int getDistancia(int city1, int city2) {return distancias[city1][city2];}
 
 };

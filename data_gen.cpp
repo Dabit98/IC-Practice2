@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string> 
+#include <string>
 #include <ctime>
 #include <cstdlib>
 #include <fstream>
@@ -31,7 +31,7 @@ void write_file(Problem p, int id, int pnum) {
 int main (int argc, char *argv[]) {
 
 	srand(time(NULL));
-	
+
 	//Cities
 	int min_cities = 3
 	int max_cities = atoi(argv[1]);
@@ -43,9 +43,9 @@ int main (int argc, char *argv[]) {
 	int max_distance = atoi(argv[2]);
 	//Problems
 	int problems = atoi(argv[3]);
-	
+
 	int id = rand(); //for the file
-		
+
 
 	std::cout << "Max cities: " << max_cities << std::endl;
 	std::cout << "Max distance: " << max_distance << std::endl;
@@ -59,8 +59,6 @@ int main (int argc, char *argv[]) {
 		write_file(problem, id, p);
 		delete problem;
 	}
-	
+
 	return 0;
 }
-
-
