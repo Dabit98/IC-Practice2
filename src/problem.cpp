@@ -1,4 +1,5 @@
 #include "problem.h"
+#include "fstream"
 
 
 	 std::vector<std::string> Problem::split(std::string str, char pattern) {
@@ -58,17 +59,33 @@
 		}
 
 		Problem::Problem(std::string s) {
-			std::vector<std::string> aux = split(s, '\n');
-			std::vector<std::string> ciudadesEstaciones = split(aux[0], '	');
-			ciudades = std::stoi(ciudadesEstaciones[0]);
-			gasolineras = std::stoi(ciudadesEstaciones[1]);
-			print(aux);
-			for(int i = 1; i < aux.size(); i++){
-				std::vector<std::string> distan = split(aux[i], '	');
-				for(int j = 0; j < distan.size(); j++){
-					distancias[i-1].push_back(std::stoi(distan[j]));
-				}
+			std::ifstream fe(s);
+			std::string str="";
+			std::string num="";
+
+			while(!fe.eof()){
+				fe >> num;
+				str += num;
+				str += '\t';
 			}
+
+			fe.close();
+			
+			std::vector<std::string> aux = split(str, '\t');
+			ciudades = std::stoi(aux[0]);
+			gasolineras = std::stoi(aux[1]);
+
+			int it = 2;
+			for(int i = 0; i < ciudades; i++){
+				std::vector<int> distancias_ciudad;
+				for(int j = 0; j < ciudades; j++){
+					distancias_ciudad.push_back(std::stoi(aux[it]));
+					it++;
+				}
+				distancias_ciudad.push_back(0);
+				distancias.push_back(distancias_ciudad);
+			}
+
 		}
 
 		std::string Problem::toString() {
