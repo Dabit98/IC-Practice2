@@ -82,7 +82,6 @@
 					distancias_ciudad.push_back(std::stoi(aux[it]));
 					it++;
 				}
-				distancias_ciudad.push_back(0);
 				distancias.push_back(distancias_ciudad);
 			}
 
