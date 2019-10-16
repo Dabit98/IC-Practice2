@@ -11,6 +11,7 @@
   		int ciudades;
   		int gasolineras;
   		std::vector<std::vector<int> > distancias;
+		std::vector<int> pesos;
 
   	 std::vector<std::string> split(std::string str, char pattern);
 
@@ -29,6 +30,7 @@
   		int getCities() {return ciudades;}
   		int getGasStations() {return gasolineras;}
   		int getDistancia(int city1, int city2) {return distancias[city1][city2];}
+		
 
   };
 

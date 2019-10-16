@@ -75,7 +75,10 @@
 			ciudades = std::stoi(aux[0]);
 			gasolineras = std::stoi(aux[1]);
 
-			int it = 2;
+			for(int i = 2; i < ciudades + 2; i++){
+				pesos.push_back(std::stoi(aux[i]));
+			}
+			int it = 2 + ciudades;
 			for(int i = 0; i < ciudades; i++){
 				std::vector<int> distancias_ciudad;
 				for(int j = 0; j < ciudades; j++){
@@ -91,6 +94,13 @@
 			std::string result = "";
 			result += std::to_string(ciudades);
 			result += "	" + std::to_string(gasolineras) + '\n';
+			
+			for(int i = 0; i < ciudades; i++){
+				result += pesos[i];
+				result += "	";
+			}
+			result += '\n';
+
 			for(int i = 0; i < distancias.size(); i++){
 
 
