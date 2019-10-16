@@ -36,4 +36,4 @@ data_gen.exe: $(ODIR)/data_gen.o $(ODIR)/problem.o
 .PHONY: clean
 
 clean:
-	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ $(PDIR)/*.p *.exe *.sol
+	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ $(PDIR)/*.p *.exe run
