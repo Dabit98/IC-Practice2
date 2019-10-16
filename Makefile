@@ -18,9 +18,11 @@ OOBJ = $(patsubst %,$(ODIR)/%,$(_OOBJ))
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-solutions.sol: opt.exe data_gen.exe
-	./data_gen.exe 4 4 4
-	./opt.exe $@ $(shell ls problems/*.p)
+solutions.sol: opt.exe $(PDIR)/index.p
+	./opt.exe $@ $(PDIR)/index.p
+
+$(PDIR)/index.p: data_gen.exe
+	./data_gen.exe $(PDIR)/index.p 4 4 4
 
 opt.exe: $(ODIR)/opt.o $(ODIR)/problem.o
 	$(CC) -o $@ $^ $(CFLAGS)

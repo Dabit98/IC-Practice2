@@ -10,16 +10,27 @@ void write_file(std::string name, std::string content) {
 int main(int argc, char* argv[]) {
   if(argc < 3) {
 		std::cout << "WRONG NUMBER OF ARGUMENTS!!!" << std::endl;
-		std::cout << "./opt.exe output_name list of input files" << std::endl;
+		std::cout << "./opt.exe output_filename input_files_list_filename" << std::endl;
 		return -1;
   }
-  std::string name(argv[1]);
-  std::string solutions = "";
-  for(int i=2; i<argc; i++) {
-    std::cout << argv[i] << std::endl;
-    solutions = solutions+argv[i]+"\t:"+" unsolved"+"\n";
-  }
-  write_file(name, solutions);
+  std::string name_output(argv[1]);
+
+	std::string name_input(argv[2]);
+
+	std::string problem;
+	std::ifstream input(name_input);
+
+	std::string solutions = "";
+	while (std::getline(input, problem)) {
+			if (!problem.empty()) {
+		    std::cout << problem << std::endl;
+		    solutions = solutions+problem+"\t:"+" unsolved"+"\n";
+			}
+	}
+
+	input.close();
+
+  write_file(name_output, solutions);
 
   return 0;
 }
