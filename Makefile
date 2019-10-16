@@ -25,13 +25,15 @@ opt.exe: $(ODIR)/opt.o $(ODIR)/problem.o
 run: opt.exe $(PDIR)/index.p
 	./opt.exe $@ $(PDIR)/index.p
 
-$(PDIR)/index.p: data_gen.exe
+$(PDIR)/index.p: data_gen.exe $(PPDIR)/index.p
 	 cp $(shell ls $(PPDIR)/*.p) $(PDIR)/
-	./data_gen.exe $(PDIR)/index.p 4 4 4
-
+	./data_gen.exe $(PDIR)/index.p 4 4 4 4
 
 data_gen.exe: $(ODIR)/data_gen.o $(ODIR)/problem.o
 	$(CC) -o $@ $^ $(CFLAGS)
+
+$(PPDIR)/index.p:
+	touch $@
 
 .PHONY: clean
 

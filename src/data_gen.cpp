@@ -42,7 +42,7 @@ int main (int argc, char *argv[]) {
 
 	if (argc < 5) {
 		std::cout << "WRONG NUMBER OF ARGUMENTS!!!" << std::endl;
-		std::cout << "./data_gen.exe output_filename max_cities max_distance problems" << std::endl;
+		std::cout << "./data_gen.exe output_filename max_cities max_distance max_weight problems" << std::endl;
 		return -1;
 	}
 
@@ -57,14 +57,17 @@ int main (int argc, char *argv[]) {
 	//Distances
 	int min_distance = 1;
 	int max_distance = atoi(argv[3]);
+	//Weight
+	int max_weight = atoi(argv[4]);
 	//Problems
-	int problems = atoi(argv[4]);
+	int problems = atoi(argv[5]);
 
 	int id = rand(); //for the file
 
 
 	std::cout << "Max cities: " << max_cities << std::endl;
 	std::cout << "Max distance: " << max_distance << std::endl;
+	std::cout << "Max weight" << max_weight << std::endl;
 	std::cout << "Problems: " << problems << std::endl;
 
 std::string problem_index = "";
@@ -72,7 +75,7 @@ std::string problem_index = "";
 	for(int p=0; p<problems; p++) {
 		int c = cities(min_cities, max_cities);
 		int g = gas_stations(c);
-		problem = new Problem(c, g, min_distance, max_distance);
+		problem = new Problem(c, g, min_distance, max_distance, max_weight);
 		std::string name = write_file(problem, id, p);
 		problem_index = problem_index + name + "\n";
 		Problem* p2 = new Problem(name);
