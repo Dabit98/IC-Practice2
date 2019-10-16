@@ -30,8 +30,8 @@ std::string write_file(Problem* p, int id, int pnum) {
 	return name;
 }
 
-void write_file(std::string name, std::string content) {
-	std::ofstream output (name);
+void append_file(std::string name, std::string content) {
+	std::ofstream output (name, std::fstream::out | std::fstream::app);
 	output << content << std::endl;
 	output.close();
 }
@@ -80,7 +80,7 @@ std::string problem_index = "";
 		delete problem;
 	}
 
-	write_file(output_filename, problem_index);
+	append_file(output_filename, problem_index);
 
 	return 0;
 }

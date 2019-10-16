@@ -2,10 +2,11 @@
 CC=g++
 CFLAGS= -I$(IDIR) -std=c++11
 
-IDIR =include
-ODIR =obj
-SDIR =src
-PDIR =problems
+IDIR  =include
+ODIR  =obj
+SDIR  =src
+PDIR  =problems
+PPDIR =permanentProblems
 
 _DEPS = problem.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
@@ -18,14 +19,16 @@ OOBJ = $(patsubst %,$(ODIR)/%,$(_OOBJ))
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-solutions.sol: opt.exe $(PDIR)/index.p
+opt.exe: $(ODIR)/opt.o $(ODIR)/problem.o
+		$(CC) -o $@ $^ $(CFLAGS)
+
+run: opt.exe $(PDIR)/index.p
 	./opt.exe $@ $(PDIR)/index.p
 
 $(PDIR)/index.p: data_gen.exe
+	 cp $(shell ls $(PPDIR)/*.p) $(PDIR)/
 	./data_gen.exe $(PDIR)/index.p 4 4 4
 
-opt.exe: $(ODIR)/opt.o $(ODIR)/problem.o
-	$(CC) -o $@ $^ $(CFLAGS)
 
 data_gen.exe: $(ODIR)/data_gen.o $(ODIR)/problem.o
 	$(CC) -o $@ $^ $(CFLAGS)
