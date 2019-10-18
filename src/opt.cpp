@@ -41,6 +41,24 @@ int alg(int argc, char* argv[]) {
 
 void prueba (void) {
 	std::cout << "MODO PRUEBA" << std::endl;
+/*
+	Nodo<std::string>* arbol = new Nodo<std::string>("PADRE");
+	Nodo<std::string>* iterador = arbol;
+	iterador->crearHijo("HIJO 1");
+	iterador->crearHijo("HIJO 2");
+	iterador = iterador->crearHijo("HIJO 3");
+	iterador->crearHijo("HIJO 1.1");
+	iterador->crearHijo("HIJO 1.2");
+*/
+	Nodo<std::string>* arbol = new Nodo<std::string>("NODO PADRE");
+	Nodo<std::string>* iterador = arbol;
+	iterador->crearHijo("NODO 1");
+	iterador->crearHijo("NODO 2");
+	iterador = iterador->crearHijo("NODO 3");
+	iterador->crearHijo("NODO 3.1");
+	iterador->crearHijo("NODO 3.2");
+
+	delete arbol;
 }
 
 int main(int argc, char* argv[]) {

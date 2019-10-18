@@ -8,11 +8,11 @@ SDIR  =src
 PDIR  =problems
 PPDIR =permanentProblems
 
-_DEPS = problem.h nodo.h
+_DEPS = problem.h nodo.h solution.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
 
-_OBJ = problem.o nodo.o
+_OBJ = problem.o nodo.o solution.o
 _DGOBJ = data_gen.o $(_OBJ)
 DGOBJ = $(patsubst %,$(ODIR)/%,$(_DGOBJ))
 _OOBJ = opt.o $(_OBJ)

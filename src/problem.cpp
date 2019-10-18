@@ -5,6 +5,23 @@
 #include <cstdlib>
 #include <fstream>
 
+/* HERRAMIENTAS DE DIAGNOSTICO
+	void Problem::print(std::vector<std::vector<int> > v)  {
+		for (int i=0; i<v.size(); i++) {
+			std::cout << "SIZE: " << v[i].size() << "\t";
+			for(int j=0; j<v[i].size(); j++) {
+				std::cout << v[i][j] << " ";
+			}
+			std::cout << std::endl;
+		}
+	}
+
+	void Problem::print(std::vector<std::string> v) {
+		for (int i=0; i<v.size(); i++) {
+			std::cout << v[i] << std::endl;
+		}
+	}
+*/
 
 std::vector<std::string> Problem::split(std::string str, char pattern) {
 	int posInit = 0;
@@ -20,22 +37,6 @@ std::vector<std::string> Problem::split(std::string str, char pattern) {
 	}
 
 	return resultados;
-}
-
-void Problem::print(std::vector<std::vector<int> > v)  {
-	for (int i=0; i<v.size(); i++) {
-		std::cout << "SIZE: " << v[i].size() << "\t";
-		for(int j=0; j<v[i].size(); j++) {
-			std::cout << v[i][j] << " ";
-		}
-		std::cout << std::endl;
-	}
-}
-
-void Problem::print(std::vector<std::string> v) {
-	for (int i=0; i<v.size(); i++) {
-		std::cout << v[i] << std::endl;
-	}
 }
 
 Problem::Problem(int ciudades, int gasolineras, int min_dist, int max_dist, int max_weight) {
@@ -118,4 +119,28 @@ std::string Problem::toString() {
 		result += '\n';
 	}
 	return result;
+}
+
+float Problem::cost(Solution s) {
+	if (s.getGasStations() != gasolineras || s.getCities() != ciudades) {
+		return -1;
+	}
+	float coste = 0;
+	//para cada ciudad
+	for(int c=0; c<ciudades; c++) {
+		//encuentra la ciudad con gasolinera mas cercana
+		int mas_cercana = -1;
+		for(int c2=0; c<ciudades; c++) {
+			if(s.gasAtCity(c2)) {
+				if(mas_cercana==-1) {
+					mas_cercana = c2;
+				} else if (distancias[c][c2] < distancias[c][mas_cercana]) {
+					mas_cercana = c2;
+				}
+			}
+		}
+		//suma al coste el peso de la ciudad * la distancia que recorre
+		coste += pesos[c] * distancias[c][mas_cercana];
+	}
+	return coste;
 }

@@ -1,5 +1,7 @@
 #ifndef PROBLEM_H
 #define PROBLEM_H
+  #include "solution.h"
+
   #include <vector>
   #include <string>
 
@@ -14,15 +16,19 @@
 
   	public:
 
+      /* HERRAMIENTAS DE DIAGNOSTICO
   		void print(std::vector<std::vector<int> > v);
-
   		void print(std::vector<std::string> v);
+      */
 
   		Problem(int ciudades, int gasolineras, int min_dist, int max_dist, int max_weight);
 
   		Problem(std::string s);
 
   		std::string toString();
+
+      float cost(Solution s);
+      Solution getBaseSolution() {return Solution(ciudades, gasolineras);}
 
   		int getCities() {return ciudades;}
   		int getGasStations() {return gasolineras;}
