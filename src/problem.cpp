@@ -1,5 +1,9 @@
 #include "problem.h"
-#include "fstream"
+
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <fstream>
 
 
 std::vector<std::string> Problem::split(std::string str, char pattern) {

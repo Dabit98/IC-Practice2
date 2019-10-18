@@ -67,7 +67,7 @@ int main (int argc, char *argv[]) {
 
 	std::cout << "Max cities: " << max_cities << std::endl;
 	std::cout << "Max distance: " << max_distance << std::endl;
-	std::cout << "Max weight" << max_weight << std::endl;
+	std::cout << "Max weight: " << max_weight << std::endl;
 	std::cout << "Problems: " << problems << std::endl;
 
 std::string problem_index = "";

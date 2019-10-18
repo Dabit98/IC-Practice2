@@ -1,5 +1,9 @@
+#include "nodo.h"
+
 #include <iostream>
 #include <fstream>
+
+const bool PRUEBA = false;
 
 void write_file(std::string name, std::string content) {
 	std::ofstream output (name);
@@ -7,7 +11,7 @@ void write_file(std::string name, std::string content) {
 	output.close();
 }
 
-int main(int argc, char* argv[]) {
+int alg(int argc, char* argv[]) {
   if(argc < 3) {
 		std::cout << "WRONG NUMBER OF ARGUMENTS!!!" << std::endl;
 		std::cout << "./opt.exe output_filename input_files_list_filename" << std::endl;
@@ -33,4 +37,17 @@ int main(int argc, char* argv[]) {
   write_file(name_output, solutions);
 
   return 0;
+}
+
+void prueba (void) {
+	std::cout << "MODO PRUEBA" << std::endl;
+}
+
+int main(int argc, char* argv[]) {
+	if (!PRUEBA) {
+		return alg(argc, argv);
+	} else {
+		prueba();
+		return 0;
+	}
 }

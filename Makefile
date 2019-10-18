@@ -8,18 +8,20 @@ SDIR  =src
 PDIR  =problems
 PPDIR =permanentProblems
 
-_DEPS = problem.h
+_DEPS = problem.h nodo.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_DGOBJ = data_gen.o problem.o
+
+_OBJ = problem.o nodo.o
+_DGOBJ = data_gen.o $(_OBJ)
 DGOBJ = $(patsubst %,$(ODIR)/%,$(_DGOBJ))
-_OOJB = opt.o problem.o
+_OOBJ = opt.o $(_OBJ)
 OOBJ = $(patsubst %,$(ODIR)/%,$(_OOBJ))
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-opt.exe: $(ODIR)/opt.o $(ODIR)/problem.o
+opt.exe: $(OOBJ)
 		$(CC) -o $@ $^ $(CFLAGS)
 
 run: opt.exe $(PDIR)/index.p
@@ -29,7 +31,7 @@ $(PDIR)/index.p: data_gen.exe $(PPDIR)/index.p
 	 cp $(shell ls $(PPDIR)/*.p) $(PDIR)/
 	./data_gen.exe $(PDIR)/index.p 4 4 4 4
 
-data_gen.exe: $(ODIR)/data_gen.o $(ODIR)/problem.o
+data_gen.exe: $(DGOBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
 
 $(PPDIR)/index.p:
