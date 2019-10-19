@@ -130,7 +130,7 @@ float Problem::cost(Solution s) {
 	for(int c=0; c<ciudades; c++) {
 		//encuentra la ciudad con gasolinera mas cercana
 		int mas_cercana = -1;
-		for(int c2=0; c<ciudades; c++) {
+		for(int c2=0; c2<ciudades; c2++) {
 			if(s.gasAtCity(c2)) {
 				if(mas_cercana==-1) {
 					mas_cercana = c2;

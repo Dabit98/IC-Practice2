@@ -14,11 +14,14 @@
 
     public:
 
+      Solution() : Solution(0,0) {};
       Solution(int cities, int gas);
       Solution(int cities, int gas, std::vector<int> ciudadesConGas);
 
       void addGas(int city);
       std::string toString();
+
+      std::vector<Solution> explore();
 
       int getCities() {return ciudades;}
       int getGasStations() {return gasolineras;}

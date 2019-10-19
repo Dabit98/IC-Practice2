@@ -1,6 +1,20 @@
 #include "solution.h"
 
 
+std::vector<Solution> Solution::explore() {
+  std::vector<Solution> hijos;
+  if(gasolinerasPuestas < gasolineras) {
+    for(int c=0; c<ciudades; c++) {
+      if(!solucion[c]) {
+        Solution s = (*this);
+        s.addGas(c);
+        hijos.push_back(s);
+      }
+    }
+  }
+  return hijos;
+}
+
 Solution::Solution(int cities, int gas) {
   ciudades = cities;
   gasolineras = gas;

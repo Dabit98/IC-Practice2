@@ -42,5 +42,4 @@ void Nodo<T>::eliminarHijos() {
 template <typename T>
 Nodo<T>::~Nodo() {
   eliminarHijos();
-  std::cout << "SE MUERE " << dato << std::endl;
 }

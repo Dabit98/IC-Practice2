@@ -78,8 +78,6 @@ std::string problem_index = "";
 		problem = new Problem(c, g, min_distance, max_distance, max_weight);
 		std::string name = write_file(problem, id, p);
 		problem_index = problem_index + name + "\n";
-		Problem* p2 = new Problem(name);
-		write_file(p2, id+1, p);
 		delete problem;
 	}
 
