@@ -7,6 +7,7 @@
 
   class Problem {
   	private:
+      static bool semilla_inicializada;
   		int ciudades;
   		int gasolineras;
   		std::vector<std::vector<int> > distancias;

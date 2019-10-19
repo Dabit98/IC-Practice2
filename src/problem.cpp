@@ -23,6 +23,8 @@
 	}
 */
 
+bool Problem::semilla_inicializada = false;
+
 std::vector<std::string> Problem::split(std::string str, char pattern) {
 	int posInit = 0;
 	int posFound = 0;
@@ -40,7 +42,10 @@ std::vector<std::string> Problem::split(std::string str, char pattern) {
 }
 
 Problem::Problem(int ciudades, int gasolineras, int min_dist, int max_dist, int max_weight) {
-	srand(time(NULL));
+	if(!semilla_inicializada) {
+		srand(time(NULL));
+		semilla_inicializada = true;
+	}
 	this->ciudades = ciudades;
 	this->gasolineras = gasolineras;
 	//genera los pesos de las ciudades

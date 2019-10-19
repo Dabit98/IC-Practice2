@@ -16,9 +16,6 @@ int gas_stations(int cities) {
 	return rand() % (max_gas_stations +1 - min_gas_stations) + min_gas_stations;
 }
 
-int cities(int min_cities, int max_cities) {
-	return rand() % (max_cities +1 - min_cities) + min_cities;
-}
 
 //Write file with the problem
 //problems/ID_problemPNUM.p
@@ -49,10 +46,9 @@ int main (int argc, char *argv[]) {
 	//Output file
 	std::string output_filename(argv[1]);
 	//Cities
-	int min_cities = 3;
-	int max_cities = atoi(argv[2]);
-	if (max_cities < 5) {
-		max_cities = 4;
+	int c = atoi(argv[2]);
+	if (c < 4) {
+		c = 4;
 	}
 	//Distances
 	int min_distance = 1;
@@ -65,7 +61,7 @@ int main (int argc, char *argv[]) {
 	int id = rand(); //for the file
 
 
-	std::cout << "Max cities: " << max_cities << std::endl;
+	std::cout << "Cities: " << c << std::endl;
 	std::cout << "Max distance: " << max_distance << std::endl;
 	std::cout << "Max weight: " << max_weight << std::endl;
 	std::cout << "Problems: " << problems << std::endl;
@@ -73,7 +69,6 @@ int main (int argc, char *argv[]) {
 std::string problem_index = "";
 	Problem* problem;
 	for(int p=0; p<problems; p++) {
-		int c = cities(min_cities, max_cities);
 		int g = gas_stations(c);
 		problem = new Problem(c, g, min_distance, max_distance, max_weight);
 		std::string name = write_file(problem, id, p);
