@@ -4,6 +4,9 @@
 
 #include <iostream>
 #include <fstream>
+#include <chrono>
+#include <unistd.h>
+#include <sstream>
 
 void write_file(std::string name, std::string content) {
 	std::ofstream output (name);
@@ -63,9 +66,14 @@ int main (int argc, char* argv[]) {
 	while (std::getline(input, problemFile)) {
 			if (!problemFile.empty()) {
 				Problem problema(problemFile);
+				auto start = std::chrono::steady_clock::now();
 				Solution solucion = solve(problema);
-		    std::cout << problemFile << std::endl << "\t" << solucion.toString() << std::endl;
-		    solutionString = solutionString +problemFile+"\t:"+ solucion.toString() +"\n";
+				auto end = std::chrono::steady_clock::now();
+				std::string time = std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count()) + " ms";
+		    std::cout << problemFile << std::endl << "\t" << solucion.toString() << "\t"
+					<< time
+					<< std::endl;
+		    solutionString = solutionString +problemFile+"\t:"+ solucion.toString() + "\t" + time + " ms\n";
 			}
 	}
 
