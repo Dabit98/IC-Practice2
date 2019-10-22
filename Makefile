@@ -1,6 +1,6 @@
 
 CC=g++
-CFLAGS= -I$(IDIR) -std=c++11
+CFLAGS= -I$(IDIR) -std=c++11 -Ofast
 
 IDIR  =include
 ODIR  =obj
