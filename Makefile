@@ -21,23 +21,35 @@ OOBJ = $(patsubst %,$(ODIR)/%,$(_OOBJ))
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
+#make: crea opt.exe
 opt.exe: $(OOBJ)
 		$(CC) -o $@ $^ $(CFLAGS)
 
-run: opt.exe $(PDIR)/index.p
-	./opt.exe $@ $(PDIR)/index.p
-
-$(PDIR)/index.p: data_gen.exe $(PPDIR)/index.p
-	 cp $(shell ls $(PPDIR)/*.p) $(PDIR)/
-	./data_gen.exe $(PDIR)/index.p 8 8 4 10
-
+#crea data_gen
 data_gen.exe: $(DGOBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
 
+#make run: muestra los resultados
+run: opt.exe $(PDIR)/index.p
+	./opt.exe "results.sol" $(PDIR)/index.p
+
+#make test: ejecuta las pruebas especificadas en sizes.test
+test: opt.exe data_gen.exe
+	./test.sh
+
+#copia los problemas permanentes
+$(PDIR)/index.p: data_gen.exe $(PPDIR)/index.p
+	 cp $(shell ls $(PPDIR)/*.p) $(PDIR)/
+
+
+#si no hay problemas permanentes crea un indice vacio
 $(PPDIR)/index.p:
 	touch $@
 
-.PHONY: clean
+.PHONY: clean, cleanProblems, run, test
 
-clean:
-	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ $(PDIR)/*.p *.exe run
+clean: cleanProblems
+	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ *.exe results.sol
+
+cleanProblems:
+	rm -f $(PDIR)/*.p
