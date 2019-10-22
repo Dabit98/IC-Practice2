@@ -83,7 +83,7 @@ int main (int argc, char* argv[]) {
 						<< time << " ms"
 						<< std::endl;
 				}
-		    solutionString = solutionString +problemFile+"\t:"+ solucion.toString() + "\t" + time + " ms\n";
+		    solutionString = solutionString +problemFile+"\t:"+ solucion.toString() + "\n";
 				acc += atoi(time.c_str());
 				total++;
 			}
