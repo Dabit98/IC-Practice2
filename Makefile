@@ -29,7 +29,7 @@ run: opt.exe $(PDIR)/index.p
 
 $(PDIR)/index.p: data_gen.exe $(PPDIR)/index.p
 	 cp $(shell ls $(PPDIR)/*.p) $(PDIR)/
-	./data_gen.exe $(PDIR)/index.p 4 4 4 4
+	./data_gen.exe $(PDIR)/index.p 8 8 4 10
 
 data_gen.exe: $(DGOBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
