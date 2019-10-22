@@ -4,18 +4,8 @@
 #include <cstdlib>
 #include <fstream>
 #include <string>
+#include <string.h>
 #include "problem.h"
-
-
-int gas_stations(int cities) {
-	int min_gas_stations = 2;
-	int max_gas_stations = cities - 2;
-	if (max_gas_stations < min_gas_stations) {
-		max_gas_stations = min_gas_stations;
-	}
-	return rand() % (max_gas_stations +1 - min_gas_stations) + min_gas_stations;
-}
-
 
 //Write file with the problem
 //problems/ID_problemPNUM.p
@@ -39,7 +29,7 @@ int main (int argc, char *argv[]) {
 
 	if (argc < 5) {
 		std::cout << "WRONG NUMBER OF ARGUMENTS!!!" << std::endl;
-		std::cout << "./data_gen.exe output_filename max_cities max_distance max_weight problems" << std::endl;
+		std::cout << "./data_gen.exe output_filename max_cities max_distance max_weight problems [-t]" << std::endl;
 		return -1;
 	}
 
@@ -50,26 +40,45 @@ int main (int argc, char *argv[]) {
 	if (c < 4) {
 		c = 4;
 	}
+	//Gas stations
+	int g = atoi(argv[3]);
+	if (g < 3) {
+		g = 3;
+	}
+	if (c < g) {
+		g = c-1;
+	}
 	//Distances
 	int min_distance = 1;
-	int max_distance = atoi(argv[3]);
+	int max_distance = atoi(argv[4]);
 	//Weight
-	int max_weight = atoi(argv[4]);
+	int max_weight = atoi(argv[5]);
 	//Problems
-	int problems = atoi(argv[5]);
+	int problems = atoi(argv[6]);
+
+	bool test = false;
+	if(7 < argc && 0==strcmp(argv[7], "-t")) {
+		test = true;
+	}
 
 	int id = rand(); //for the file
 
-
-	std::cout << "Cities: " << c << std::endl;
-	std::cout << "Max distance: " << max_distance << std::endl;
-	std::cout << "Max weight: " << max_weight << std::endl;
-	std::cout << "Problems: " << problems << std::endl;
+	if (test) {
+		std::cout << c << "\t"
+						<< g << "\t"
+						<< max_distance << "\t"
+						<< max_weight << "\t";
+	} else {
+		std::cout << "Cities: " << c << std::endl;
+		std::cout << "Gas stations: " << g << std::endl;
+		std::cout << "Max distance: " << max_distance << std::endl;
+		std::cout << "Max weight: " << max_weight << std::endl;
+		std::cout << "Problems: " << problems << std::endl;
+	}
 
 std::string problem_index = "";
 	Problem* problem;
 	for(int p=0; p<problems; p++) {
-		int g = gas_stations(c);
 		problem = new Problem(c, g, min_distance, max_distance, max_weight);
 		std::string name = write_file(problem, id, p);
 		problem_index = problem_index + name + "\n";

@@ -7,6 +7,7 @@
 #include <chrono>
 #include <unistd.h>
 #include <sstream>
+#include <string.h>
 
 void write_file(std::string name, std::string content) {
 	std::ofstream output (name);
@@ -22,7 +23,7 @@ Solution solve(Problem problem) {
 	std::vector<Nodo<Solution>*> listaSinExplorar;
 	listaSinExplorar.push_back(arbol);
 
-	while(!listaSinExplorar.empty()) {
+		while(!listaSinExplorar.empty()) {
 		//exploramos, creamos hijos, metemos hijos a listaSinExplorar
 		//si no tiene hijo, miramos lo buena que es su solucion
 		//sacamos el ultimo nodo
@@ -52,30 +53,46 @@ Solution solve(Problem problem) {
 int main (int argc, char* argv[]) {
   if(argc < 3) {
 		std::cout << "WRONG NUMBER OF ARGUMENTS!!!" << std::endl;
-		std::cout << "./opt.exe output_filename input_files_list_filename" << std::endl;
+		std::cout << "./opt.exe output_filename input_files_list_filename [-t]" << std::endl;
 		return -1;
   }
   std::string name_output(argv[1]);
 
 	std::string name_input(argv[2]);
 
+	bool test = false;
+	if(3 < argc && 0==strcmp(argv[3], "-t")) {
+		test = true;
+	}
+
 	std::string problemFile;
 	std::ifstream input(name_input);
 
 	std::string solutionString = "";
+	float acc = 0;
+	int total = 0;
 	while (std::getline(input, problemFile)) {
 			if (!problemFile.empty()) {
 				Problem problema(problemFile);
 				auto start = std::chrono::steady_clock::now();
 				Solution solucion = solve(problema);
 				auto end = std::chrono::steady_clock::now();
-				std::string time = std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count()) + " ms";
-		    std::cout << problemFile << std::endl << "\t" << solucion.toString() << "\t"
-					<< time
-					<< std::endl;
+				std::string time = std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
+				if (!test) {
+			    std::cout << problemFile << std::endl << "\t" << solucion.toString() << "\t"
+						<< time << " ms"
+						<< std::endl;
+				}
 		    solutionString = solutionString +problemFile+"\t:"+ solucion.toString() + "\t" + time + " ms\n";
+				acc += atoi(time.c_str());
+				total++;
 			}
 	}
+
+	if(!test) {
+		std::cout << "MEDIA: ";
+	}
+	std::cout << acc/total << std::endl;
 
 	input.close();
 
