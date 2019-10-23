@@ -19,13 +19,17 @@ Solution solve(Problem problem) {
 	Solution mejorSolucion;
 	float mejorCoste = -1;
 
+	/*
+	 *	1: Inicializamos los datos
+	 */
 	Nodo<Solution>* arbol = new Nodo<Solution>(problem.getBaseSolution());
 	std::vector<Nodo<Solution>*> listaSinExplorar;
 	listaSinExplorar.push_back(arbol);
 
 		while(!listaSinExplorar.empty()) {
-		//exploramos, creamos hijos, metemos hijos a listaSinExplorar
-		//si no tiene hijo, miramos lo buena que es su solucion
+		/*
+		 *	2: Exploramos el arbol
+		 */
 		//sacamos el ultimo nodo
 		Nodo<Solution>* next = listaSinExplorar.back();
 		listaSinExplorar.pop_back();
@@ -36,10 +40,17 @@ Solution solve(Problem problem) {
 			Nodo<Solution>* hijo = next->crearHijo(hijos[i]);
 			listaSinExplorar.push_back(hijo);
 		}
-		//Si la solucion del Nodo explorado esta completa, compara coste y la guarda
 
+		//Si la solucion del Nodo explorado esta completa, deja de explorar el arbol
 		if(next->getDato().isComplete()) {
+			/*
+			 *	3: Calcula el coste
+			 */
 			float coste = problem.cost(next->getDato());
+
+			/*
+			 *	4: Se queda con el mejor coste
+			 */
 			if (mejorCoste == -1 || coste < mejorCoste) {
 				mejorCoste = coste;
 				mejorSolucion = next->getDato();
@@ -47,6 +58,9 @@ Solution solve(Problem problem) {
 		}
 	}
 
+	/*
+	 *	5: Una vez acaba el pipeline, devuelve el mejor
+	 */
 	return mejorSolucion;
 }
 
@@ -77,10 +91,10 @@ int main (int argc, char* argv[]) {
 				auto start = std::chrono::steady_clock::now();
 				Solution solucion = solve(problema);
 				auto end = std::chrono::steady_clock::now();
-				std::string time = std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
+				std::string time = std::to_string(std::chrono::duration_cast<std::chrono::microseconds>(end - start).count());
 				if (!test) {
 			    std::cout << problemFile << std::endl << "\t" << solucion.toString() << "\t"
-						<< time << " ms"
+						<< time << " µs"
 						<< std::endl;
 				}
 		    solutionString = solutionString +problemFile+"\t:"+ solucion.toString() + "\n";

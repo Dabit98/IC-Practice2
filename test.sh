@@ -1,5 +1,5 @@
 #!/bin/bash
-printf "Cities\tGas\tDist\tWeight\tTime (ms)\n"
+printf "Cities\tGas\tDist\tWeight\tTime (µs)\n"
 input="sizes.test"
 while IFS= read -r line
 do
