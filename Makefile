@@ -1,7 +1,7 @@
 
 CC=g++
 COREFLAGS= -I$(IDIR) -std=c++11
-CFLAGS= $(COREFLAGS) -Ofast
+CFLAGS= $(COREFLAGS) -O0
 
 IDIR  =include
 ODIR  =obj
